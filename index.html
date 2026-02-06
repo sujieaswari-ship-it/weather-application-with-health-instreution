@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Health Advisor - Your Personal Health & Weather Guide</title>
+    <meta name="description" content="Get personalized health recommendations based on current weather conditions. Stay hydrated and healthy with fruit suggestions tailored to temperature.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌡️ Weather Health Advisor</h1>
+            <p class="tagline">Your personal guide to staying healthy in any weather</p>
+        </header>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" id="cityInput" placeholder="Search city..." aria-label="Search for a city">
+                <button id="searchBtn" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+            <button id="locationBtn" class="location-btn" aria-label="Use my location">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                Use My Location
+            </button>
+        </div>
+
+        <!-- Weather Card -->
+        <div class="weather-card" id="weatherCard">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Getting weather data...</p>
+            </div>
+
+            <div class="weather-content" id="weatherContent" style="display: none;">
+                <div class="location-info">
+                    <h2 id="cityName">--</h2>
+                    <p id="currentDate">--</p>
+                </div>
+
+                <div class="weather-main">
+                    <div class="temperature-display">
+                        <span class="temp-number" id="temperature">--</span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+                    <div class="weather-icon" id="weatherIcon">☀️</div>
+                </div>
+
+                <div class="weather-description" id="weatherDescription">--</div>
+
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                        </svg>
+                        <span>Feels Like</span>
+                        <strong id="feelsLike">--°C</strong>
+                    </div>
+                    <div class="detail-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                        </svg>
+                        <span>Humidity</span>
+                        <strong id="humidity">--%</strong>
+                    </div>
+                    <div class="detail-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                        </svg>
+                        <span>Wind Speed</span>
+                        <strong id="windSpeed">-- km/h</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Recommendations Section -->
+        <div class="health-section" id="healthSection" style="display: none;">
+            <h2>🍉 Health Recommendations for Today</h2>
+            
+            <!-- Main Health Alert -->
+            <div class="health-alert" id="healthAlert">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-content">
+                    <h3 id="alertTitle">Stay Hydrated!</h3>
+                    <p id="alertMessage">The temperature is high today. Make sure to drink plenty of water.</p>
+                </div>
+            </div>
+
+            <!-- Fruit Recommendations -->
+            <div class="fruit-recommendations">
+                <h3>🥗 Recommended Fruits Today</h3>
+                <p class="section-subtitle">These fruits will help you stay hydrated and healthy:</p>
+                <div class="fruits-grid" id="fruitsGrid">
+                    <!-- Fruit cards will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Additional Tips -->
+            <div class="health-tips">
+                <h3>💡 Additional Health Tips</h3>
+                <ul id="healthTipsList">
+                    <!-- Tips will be inserted here by JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <p id="errorText">Something went wrong. Please try again.</p>
+        </div>
+
+        <footer>
+            <p>💚 Stay healthy, stay hydrated! | Weather data provided by OpenWeatherMap</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
